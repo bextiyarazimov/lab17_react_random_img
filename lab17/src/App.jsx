@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css'; // İsteğe bağlı: CSS dosyanızı ekleyebilirsiniz
 
 const AnimalGallery = () => {
-  const [randomImageUrl, setRandomImageUrl] = useState('');
+  const [randomImageUrls, setRandomImageUrls] = useState([]);
 
   const images = [
     "https://source.unsplash.com/400x300/?dog",
@@ -14,14 +14,20 @@ const AnimalGallery = () => {
   const randomImage = () => {
     const randomNumber = Math.floor(Math.random() * images.length);
     const randomImageUrl = images[randomNumber];
-    setRandomImageUrl(randomImageUrl);
+    setRandomImageUrls(prevState => [...prevState, randomImageUrl]);
   };
 
   return (
     <div className="animal-gallery">
       <h1>Rastgele Hayvan Resimleri</h1>
       <button onClick={randomImage}>Rastgele Resim Getir</button>
-      {randomImageUrl && <img src={randomImageUrl} alt="Hayvan Resmi" />}
+      <div className="image-container">
+        {randomImageUrls.map((imageUrl, index) => (
+          <div key={index} className="image-wrapper">
+            <img src={imageUrl} alt={`Hayvan Resmi ${index}`} />
+          </div>
+        ))}
+      </div>
       <br />
       <p><small>Resimler: Unsplash</small></p>
     </div>
