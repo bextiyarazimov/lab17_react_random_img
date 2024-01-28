@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css'; // İsteğe bağlı: CSS dosyanızı ekleyebilirsiniz
+import './App.css'; 
 
 const AnimalGallery = () => {
   const [randomImageUrls, setRandomImageUrls] = useState([]);
@@ -17,19 +17,25 @@ const AnimalGallery = () => {
     setRandomImageUrls(prevState => [...prevState, randomImageUrl]);
   };
 
+  const handleHeartClick = (index) => {
+    console.log(` ${index}`);
+  };
+
   return (
     <div className="animal-gallery">
-      <h1>Rastgele Hayvan Resimleri</h1>
-      <button onClick={randomImage}>Rastgele Resim Getir</button>
+      <h1>Random image</h1>
+      <button onClick={randomImage}>get animal random image</button>
       <div className="image-container">
         {randomImageUrls.map((imageUrl, index) => (
           <div key={index} className="image-wrapper">
-            <img src={imageUrl} alt={`Hayvan Resmi ${index}`} />
+            <div className="image">
+              <img src={imageUrl} alt={` ${index}`} />
+            </div>
+            <div className="heart" onClick={() => handleHeartClick(index)}>❤️</div>
           </div>
         ))}
       </div>
       <br />
-      <p><small>Resimler: Unsplash</small></p>
     </div>
   );
 };
